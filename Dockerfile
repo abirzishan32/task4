@@ -35,7 +35,7 @@ WORKDIR /var/www/symfony
 COPY . .
 
 # Install Symfony dependencies
-RUN composer install --no-dev --optimize-autoloader --no-scripts
+RUN composer install --no-dev --optimize-autoloader
 
 # Install and build frontend assets
 RUN npm install && \
@@ -51,10 +51,10 @@ RUN mkdir -p var/cache var/log && \
 COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
 COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Warm up Symfony cache
-RUN APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --no-warmup && \
-    APP_ENV=prod APP_DEBUG=0 php bin/console cache:warmup
+# Create entrypoint script
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

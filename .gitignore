@@ -19,3 +19,4 @@ yarn-error.log
 .env.prod
 .env.local
 .env
+.env.db
