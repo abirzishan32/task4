@@ -49,7 +49,7 @@ RUN chown -R www-data:www-data var public/build && \
 # Copy configuration files
 COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
 COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY docker/php/php.ini /usr/local/etc/php/conf.d/app.ini
+# COPY docker/php/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Warm up Symfony cache
 RUN APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --no-warmup && \
