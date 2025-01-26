@@ -29,7 +29,7 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
 # COPY docker/php/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Set working directory
-WORKDIR /var/www/symfony
+WORKDIR /var/www/html
 
 # Copy application code
 COPY . .
