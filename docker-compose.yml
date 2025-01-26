@@ -1,6 +1,22 @@
 version: '3.8'
 
 services:
+  # MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: task4_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:${MYSQL_PORT}"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app_network
   # PHP Service
   app:
     image: abirzishan32/task4_app:latest
@@ -9,26 +25,11 @@ services:
       dockerfile: Dockerfile
     container_name: task4_app
     restart: unless-stopped
-    env_file:
-      - .env.prod
     ports:
       - "80:8069"
     volumes:
       - symfony_var:/var/www/symfony/var
       - symfony_public:/var/www/symfony/public
-    networks:
-      - app_network
-
-  db:
-    image: mysql:8.0
-    container_name: task4_db
-    restart: unless-stopped
-    env_file:
-      - .env.prod
-    ports:
-      - "3306:3369"
-    volumes:
-      - db_data:/var/lib/mysql
     networks:
       - app_network
 
