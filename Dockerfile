@@ -25,8 +25,8 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs build-essential \
     && npm install -g npm
 
-# Configure PHP for production
-COPY dockerconfig/php.ini /usr/local/etc/php/conf.d/app.ini
+# # Configure PHP for production
+# COPY docker/php/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Set working directory
 WORKDIR /var/www/symfony
@@ -49,7 +49,6 @@ RUN chown -R www-data:www-data var public/build && \
 # Copy configuration files
 COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
 COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-# COPY docker/php/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Warm up Symfony cache
 RUN APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --no-warmup && \
