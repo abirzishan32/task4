@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   # MySQL Service
@@ -6,11 +5,8 @@ services:
     image: mysql:8.0
     container_name: task4_db
     restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    env_file:
+      - .env.prod
     ports:
       - "3306:${MYSQL_PORT}"
     volumes:
