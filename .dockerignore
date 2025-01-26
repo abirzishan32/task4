@@ -1,5 +1,9 @@
+.git
+.gitignore
+.env
+.env.local
+.env.*.local
+docker-compose.yml
+var/
 vendor/
 node_modules/
-var/
-.env.local
-.git/

@@ -13,6 +13,11 @@ services:
       - APP_ENV=prod
       - APP_SECRET=${APP_SECRET}
       - DATABASE_URL=${DATABASE_URL}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=db
+      - MYSQL_PORT=${MYSQL_PORT}
     ports:
       - "80:8069"
     volumes:
@@ -31,7 +36,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3306:3369"
+      - "3306:${MYSQL_PORT}"
     volumes:
       - db_data:/var/lib/mysql
     networks:
