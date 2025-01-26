@@ -43,7 +43,8 @@ RUN npm install && \
     rm -rf node_modules
 
 # Set permissions
-RUN chown -R www-data:www-data var public/build && \
+RUN mkdir -p var/cache var/log && \
+    chown -R www-data:www-data var public/build && \
     chmod -R 777 var public/build
 
 # Copy configuration files
