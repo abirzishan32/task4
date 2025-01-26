@@ -9,15 +9,8 @@ services:
       dockerfile: Dockerfile
     container_name: task4_app
     restart: unless-stopped
-    environment:
-      - APP_ENV=prod
-      - APP_SECRET=${APP_SECRET}
-      - DATABASE_URL=${DATABASE_URL}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_HOST=db
-      - MYSQL_PORT=${MYSQL_PORT}
+    env_file:
+      - .env.prod
     ports:
       - "80:8069"
     volumes:
@@ -30,13 +23,10 @@ services:
     image: mysql:8.0
     container_name: task4_db
     restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    env_file:
+      - .env.prod
     ports:
-      - "3306:${MYSQL_PORT}"
+      - "3306:3369"
     volumes:
       - db_data:/var/lib/mysql
     networks:
