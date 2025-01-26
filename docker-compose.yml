@@ -19,6 +19,8 @@ services:
       - app_network
   # PHP Service
   app:
+    depends_on:
+      - db
     image: abirzishan32/task4_app:latest
     build:
       context: .
