@@ -14,8 +14,14 @@
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form method="post" class="space-y-6">
                 {% if error %}
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <span class="block sm:inline">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                    <div class="text-sm text-red-600 mb-4">
+                        {% if error.messageKey == 'Invalid credentials.' %}
+                            The email or password you entered is incorrect.
+                        {% elseif error.messageKey starts with 'Your account has been blocked' %}
+                            Your account has been blocked. Please contact support.
+                        {% else %}
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        {% endif %}
                     </div>
                 {% endif %}
 

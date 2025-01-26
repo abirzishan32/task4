@@ -36,8 +36,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $registeredAt = null;
 
-    #[ORM\Column]
-    private bool $isBlocked = false;
+    #[ORM\Column(type: 'boolean')]
+    private $isBlocked = false;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $lastSeenAt = null;
@@ -89,13 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        return $this->roles;
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-        return $this;
+        return ['ROLE_USER'];
     }
 
     public function getLastLoginAt(): ?\DateTimeImmutable
@@ -109,14 +103,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsBlocked(): bool
+    public function isBlocked(): bool
     {
         return $this->isBlocked;
     }
 
-    public function setIsBlocked(bool $isBlocked): self
+    public function setBlocked(bool $blocked): self
     {
-        $this->isBlocked = $isBlocked;
+        $this->isBlocked = $blocked;
         return $this;
     }
 

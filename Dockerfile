@@ -4,33 +4,57 @@ FROM php:8.2-fpm
 RUN apt-get update && apt-get install -y \
     git \
     curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
+    nano \
+    nginx \
     unzip \
-    nodejs \
-    npm
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
+    supervisor \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql zip gd opcache
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# Install Node.js and NPM
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs build-essential \
+    && npm install -g npm
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Configure PHP for production
+COPY dockerconfig/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/symfony
 
-# Copy existing application directory
-COPY . /var/www
+# Copy application code
+COPY . .
 
-# Install dependencies
-RUN composer install --no-interaction --optimize-autoloader
-RUN npm install
-RUN npm run build
+# Install Symfony dependencies
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Install and build frontend assets
+RUN npm install && \
+    npm run build && \
+    rm -rf node_modules
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www 
+RUN chown -R www-data:www-data var public/build && \
+    chmod -R 777 var public/build
+
+# Copy configuration files
+COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
+COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/app.ini
+
+# Warm up Symfony cache
+RUN APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear --no-warmup && \
+    APP_ENV=prod APP_DEBUG=0 php bin/console cache:warmup
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

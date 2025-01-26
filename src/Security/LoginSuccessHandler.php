@@ -29,7 +29,7 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
     {
         $user = $token->getUser();
         if ($user instanceof User) {
-            if ($user->isIsBlocked()) {
+            if ($user->isBlocked()) {
                 throw new AuthenticationException('Your account has been blocked. Please contact administrator.');
             }
             

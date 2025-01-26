@@ -22,8 +22,10 @@ security:
                 success_handler: App\Security\LoginSuccessHandler
                 username_parameter: email
                 password_parameter: password
+                failure_handler: App\Security\LoginFailureHandler
             logout:
                 path: app_logout
+            user_checker: App\Security\UserChecker
 
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }

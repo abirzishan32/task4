@@ -14,26 +14,53 @@
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             {{ form_start(registrationForm, {'attr': {'class': 'space-y-6'}}) }}
                 <div>
-                    {{ form_label(registrationForm.name, 'Name', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <label for="{{ registrationForm.name.vars.id }}" class="block text-sm font-medium text-gray-700">
+                        Name
+                    </label>
                     <div class="mt-1">
-                        {{ form_widget(registrationForm.name) }}
-                        {{ form_errors(registrationForm.name) }}
+                        {{ form_widget(registrationForm.name, {
+                            'attr': {
+                                'class': 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' ~
+                                (form_errors(registrationForm.name) ? ' border-red-300' : '')
+                            }
+                        }) }}
+                        {% if form_errors(registrationForm.name) %}
+                            <p class="mt-1 text-sm text-red-600">{{ form_errors(registrationForm.name) }}</p>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div>
-                    {{ form_label(registrationForm.email, 'Email address', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <label for="{{ registrationForm.email.vars.id }}" class="block text-sm font-medium text-gray-700">
+                        Email
+                    </label>
                     <div class="mt-1">
-                        {{ form_widget(registrationForm.email) }}
-                        {{ form_errors(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email, {
+                            'attr': {
+                                'class': 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' ~
+                                (form_errors(registrationForm.email) ? ' border-red-300' : '')
+                            }
+                        }) }}
+                        {% if form_errors(registrationForm.email) %}
+                            <p class="mt-1 text-sm text-red-600">{{ form_errors(registrationForm.email) }}</p>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div>
-                    {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+                    <label for="{{ registrationForm.plainPassword.vars.id }}" class="block text-sm font-medium text-gray-700">
+                        Password
+                    </label>
                     <div class="mt-1">
-                        {{ form_widget(registrationForm.plainPassword) }}
-                        {{ form_errors(registrationForm.plainPassword) }}
+                        {{ form_widget(registrationForm.plainPassword, {
+                            'attr': {
+                                'class': 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' ~
+                                (form_errors(registrationForm.plainPassword) ? ' border-red-300' : '')
+                            }
+                        }) }}
+                        {% if form_errors(registrationForm.plainPassword) %}
+                            <p class="mt-1 text-sm text-red-600">{{ form_errors(registrationForm.plainPassword) }}</p>
+                        {% endif %}
                     </div>
                 </div>
 

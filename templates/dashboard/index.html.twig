@@ -23,6 +23,10 @@
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
             <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center">
+                    <input type="checkbox" id="selectAll" class="mr-2 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <label for="selectAll" class="text-sm text-gray-700">Select All</label>
+                </div>
                 <div class="flex space-x-4">
                     <button id="blockBtn" 
                             class="group relative bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2" 
@@ -39,22 +43,28 @@
                         </div>
                     </button>
                     <button id="unblockBtn" 
-                            class="group relative bg-green-500 text-white p-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
+                            class="group relative bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" 
                             title="Unblock selected users">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                        </svg>
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            Unblock
+                        </span>
                         <div class="hidden group-hover:block absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700 -top-14 left-1/2 transform -translate-x-1/2">
                             Unblock selected users
                             <div class="tooltip-arrow absolute w-2 h-2 bg-gray-900 transform rotate-45 left-1/2 -translate-x-1/2 bottom-[-4px]"></div>
                         </div>
                     </button>
                     <button id="deleteBtn" 
-                            class="group relative bg-red-500 text-white p-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" 
+                            class="group relative bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" 
                             title="Delete selected users">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
+                        <span class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            Delete
+                        </span>
                         <div class="hidden group-hover:block absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm tooltip dark:bg-gray-700 -top-14 left-1/2 transform -translate-x-1/2">
                             Delete selected users
                             <div class="tooltip-arrow absolute w-2 h-2 bg-gray-900 transform rotate-45 left-1/2 -translate-x-1/2 bottom-[-4px]"></div>
@@ -68,7 +78,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                <input type="checkbox" id="selectAll" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <span class="sr-only">Select</span>
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Name
@@ -85,6 +95,9 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Status
                             </th>
+                            {# <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions
+                            </th> #}
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -114,6 +127,20 @@
                                         {{ user.isBlocked ? 'Blocked' : 'Active' }}
                                     </span>
                                 </td>
+                                {# <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if app.user.id == user.id %}
+                                        <a href="{{ path('app_user_block', {id: user.id}) }}" 
+                                           class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-yellow-700 bg-yellow-100 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+                                           onclick="return confirm('Are you sure you want to {% if user.blocked %}unblock{% else %}block{% endif %} this user?')">
+                                            {% if user.blocked %}Unblock{% else %}Block{% endif %}
+                                        </a>
+                                        <a href="{{ path('app_user_delete', {id: user.id}) }}" 
+                                           class="ml-2 inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                           onclick="return confirm('Are you sure you want to delete this user? This action cannot be undone.')">
+                                            Delete
+                                        </a>
+                                    {% endif %}
+                                </td> #}
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -139,6 +166,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Update select all when individual checkboxes change
+    userCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            selectAll.checked = Array.from(userCheckboxes).every(cb => cb.checked);
+        });
+    });
+
     function performAction(action) {
         const selectedUsers = Array.from(userCheckboxes)
             .filter(checkbox => checkbox.checked)
@@ -149,20 +183,31 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (action === 'delete' && !confirm('Are you sure you want to delete the selected users?')) {
+        let confirmMessage = 'Are you sure you want to perform this action?';
+        if (action === 'delete') {
+            confirmMessage = 'Are you sure you want to delete the selected users? This action cannot be undone.';
+        } else if (action === 'block') {
+            confirmMessage = 'Are you sure you want to block the selected users?';
+        } else if (action === 'unblock') {
+            confirmMessage = 'Are you sure you want to unblock the selected users?';
+        }
+
+        if (!confirm(confirmMessage)) {
             return;
         }
+
+        const formData = new FormData();
+        formData.append('action', action);
+        selectedUsers.forEach(userId => {
+            formData.append('users[]', userId);
+        });
 
         fetch('{{ path('app_users_bulk_action') }}', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 'X-Requested-With': 'XMLHttpRequest'
             },
-            body: new URLSearchParams({
-                action: action,
-                'users[]': selectedUsers  // Note the array notation
-            })
+            body: formData
         })
         .then(response => {
             if (!response.ok) {
@@ -176,7 +221,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.message) {
                 alert(data.message);
             }
-            location.reload();
+            if (data.logout) {
+                window.location.href = '{{ path('app_logout') }}';
+            } else {
+                location.reload();
+            }
         })
         .catch(error => {
             console.error('Error:', error);
