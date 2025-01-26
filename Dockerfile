@@ -35,7 +35,7 @@ WORKDIR /var/www/symfony
 COPY . .
 
 # Install Symfony dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Install and build frontend assets
 RUN npm install && \
